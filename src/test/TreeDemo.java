@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -56,7 +57,7 @@ public class TreeDemo extends JPanel
         //Create a tree that allows one selection at a time.
         tree = new JTree(top);
         tree.getSelectionModel().setSelectionMode
-                (TreeSelectionModel.SINGLE_TREE_SELECTION);
+                (TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
 
         //Listen for when the selection changes.
         tree.addTreeSelectionListener(this);
@@ -94,6 +95,8 @@ public class TreeDemo extends JPanel
     public void valueChanged(TreeSelectionEvent e) {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                            tree.getLastSelectedPathComponent();
+        TreePath[] jtree= tree.getSelectionPaths();
+        System.out.println(jtree.length + jtree.toString());
 
         if (node == null) return;
 
@@ -166,7 +169,7 @@ public class TreeDemo extends JPanel
 
         //original Tutorial
         book = new DefaultMutableTreeNode(new BookInfo
-            ("The Java Tutorial: A Short Course on the Basics",
+            ("The Java Tutorial:\n A Short Course on the Basics",
             "tutorial.html"));
         category.add(book);
 

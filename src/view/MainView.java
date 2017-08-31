@@ -66,6 +66,7 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		panel1.add(btnFind);
 		
 		JPanel panel2 = new JPanel();
+		panel2.setSize(500, 500);
 		
 		JPanel panelCode = new JPanel();
 		panelCode.setBorder(BorderFactory.createTitledBorder(

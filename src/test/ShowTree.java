@@ -2,17 +2,25 @@ package test;
 
 import java.awt.GridLayout;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
-public class TestJScrollPanel extends JFrame {
+public class ShowTree extends JFrame implements MouseListener{
 	
 	private JPanel panel;
-	public TestJScrollPanel() {
+	public ShowTree() {
 		LinkedList list = new LinkedList();
 		
 		//input test
@@ -21,7 +29,7 @@ public class TestJScrollPanel extends JFrame {
 				list.add(""+i);
 				continue;
 			}else if(i%2==0){
-				list.add("|"+i);
+				list.add("*"+i);
 				continue;
 			}
 				
@@ -44,10 +52,7 @@ public class TestJScrollPanel extends JFrame {
 		System.out.println(list.toString());
 
 		
-		
-		
 		panel = new JPanel();
-		
 		panel.setLayout(new GridLayout(0,1));
 		showListPanel(list,"");
 
@@ -65,15 +70,60 @@ public class TestJScrollPanel extends JFrame {
 	private void showListPanel(LinkedList list, String deep){
 		for (Object i: list){
 			if ( i instanceof LinkedList){
-				showListPanel((LinkedList)i,deep+"__");
+				showListPanel((LinkedList)i," | "+deep);
 			}
 			else{
-			panel.add(new Label(deep + (String)i));
+				System.out.println(i.getClass().getName());
+				JLabel lb = new JLabel(deep+" |_" + (String)i);
+				lb.addMouseListener(this);
+				panel.add(lb);
 			}
 		}
 	}
 
+
+	private Object getParent(int i){
+		
+		return null;
+	}
+
 	public static void main(String[] args) {
-		new TestJScrollPanel();
+		new ShowTree();
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		String str;
+		
+		str= ((JLabel) e.getComponent()).getText();
+		System.out.println("2"+str);
+		str=((JLabel) e.getSource()).getText();
+		System.out.println("3"+str);
+				
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
