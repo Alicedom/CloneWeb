@@ -1,7 +1,5 @@
 package test;
 
-import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -9,10 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListCellRenderer;
 
 public class ShowPanel extends JFrame implements ActionListener{
 

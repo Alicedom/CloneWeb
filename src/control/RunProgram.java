@@ -1,7 +1,6 @@
 package control;
 
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 public class RunProgram {
 	public static void main(String[] args) {

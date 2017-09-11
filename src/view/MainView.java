@@ -24,9 +24,11 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	JMenuItem itOpen,itSave,itImport,itExport;
+	JMenuItem itAdd,itDel;
 	
 	JTextField tfInput = new JTextField("Input",20);
-	JComboBox<String> cbSelection = new JComboBox<String>(new String[]{"Class","Id","TagName"});
+	JComboBox<String> cbSelection = 
+			new JComboBox<String>(new String[]{"Class","Id","TagName"});
 	JButton btnFind = new JButton("Find");
 	
 	public MainView() {
@@ -45,19 +47,37 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		menuFile.add(itOpen);
 		
 		itSave = new JMenuItem("Save");
-		itSave.setToolTipText("Save result parse to file");
+		itSave.setToolTipText("Save HTML result to file");
 		itSave.setMnemonic(KeyEvent.VK_S);
 		menuFile.add(itSave);
 		
 		itImport = new JMenuItem("Import");
-		itImport.setToolTipText("Import Code to execuse");
+		itImport.setToolTipText("Import execute Code");
 		itImport.setMnemonic(KeyEvent.VK_I);
 		menuFile.add(itImport);
 		
 		itExport = new JMenuItem("Export");
-		itExport.setToolTipText("Save excercise Code");
+		itExport.setToolTipText("Save execute Code");
 		itExport.setMnemonic(KeyEvent.VK_E);
 		menuFile.add(itExport);
+		
+		JMenu menuEdit= new JMenu("Edit");
+		menuFile.setMnemonic(KeyEvent.VK_T);
+		mainMennu.add(menuEdit);
+		
+		itAdd = new JMenuItem("Add");
+		itAdd.setToolTipText("Add attribute to element");
+		itAdd.setMnemonic(KeyEvent.VK_A);
+		menuEdit.add(itAdd);
+		
+		itDel = new JMenuItem("Del");
+		itDel.setToolTipText("Del attribute to element");
+		itDel.setMnemonic(KeyEvent.VK_D);
+		menuEdit.add(itDel);
+		
+		JMenu menuHelp= new JMenu("Help");
+		menuFile.setMnemonic(KeyEvent.VK_H);
+		mainMennu.add(menuHelp);
 		
 		//*******Add panel***********
 		JPanel panel1 = new JPanel();

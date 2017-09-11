@@ -1,5 +1,10 @@
 package test;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.io.IOException;
+import java.net.URL;
+
 /**
  * This application that requires the following additional files:
  *   TreeDemoHelp.html
@@ -17,23 +22,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.UIManager;
-
 import javax.swing.JTree;
+import javax.swing.UIManager;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-
-import java.net.URL;
-import java.io.IOException;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 
 public class TreeDemo extends JPanel
                       implements TreeSelectionListener {
-    private JEditorPane htmlPane;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JEditorPane htmlPane;
     private JTree tree;
     private URL helpURL;
     private static boolean DEBUG = false;

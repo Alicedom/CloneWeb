@@ -33,6 +33,7 @@ public class CloneWebProgram {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				File file = openJChooseFile("Open");
+				System.out.println(file);
 				
 			}
 		});
@@ -42,7 +43,7 @@ public class CloneWebProgram {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				File file = openJChooseFile("Save");
-				
+				System.out.println(file);
 			}
 		});
 		main.addClickListtenerForImportItemMenu(new ActionListener() {
@@ -50,6 +51,7 @@ public class CloneWebProgram {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				File file = openJChooseFile("Import");
+				System.out.println(file);
 			}
 		});
 		main.addClickListtenerForExportItemMenu(new ActionListener() {
@@ -57,6 +59,7 @@ public class CloneWebProgram {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				File file = openJChooseFile("Export");
+				System.out.println(file);
 			}
 		});
 	}

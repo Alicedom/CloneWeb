@@ -1,0 +1,3 @@
+Quản trị chiến lược (P13: Phân tích môi trường bên trong bằng Chuỗi giá trị)
+20/07/2014
+By dungiso -

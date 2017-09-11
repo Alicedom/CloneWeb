@@ -16,6 +16,10 @@ import javax.swing.tree.TreeSelectionModel;
 public class TestTree  extends JPanel
 implements TreeSelectionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTree tree=null;
 	public TestTree() {
 		LinkedList top = new LinkedList();

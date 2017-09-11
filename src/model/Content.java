@@ -9,7 +9,6 @@ public class Content {
 	private String mainContent;
 	
 	public Content() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Content(String initTitle, String initDate, String initCategory, String initShortContent, String initMainContent) {

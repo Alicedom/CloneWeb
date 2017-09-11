@@ -222,7 +222,7 @@ public class Clone {
 	public static void main(String[] args) {
 
 		try {
-			Clone clone = new Clone();
+			new Clone();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
