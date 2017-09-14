@@ -1,4 +1,4 @@
-package model;
+package test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,7 +13,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class Clone {
+public class CloneTamlyhoc {
 
 	private static Document doc;
 	private LinkedList<String> linkListCategories;
@@ -26,7 +26,7 @@ public class Clone {
 	private Writer log;
 	private Element info;
 
-	public Clone() throws IOException {
+	public CloneTamlyhoc() throws IOException {
 		try{
 			File fileLog = new File(logName);
 			if(!fileLog.exists())
@@ -222,7 +222,7 @@ public class Clone {
 	public static void main(String[] args) {
 
 		try {
-			new Clone();
+			new CloneTamlyhoc();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
