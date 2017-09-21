@@ -72,7 +72,6 @@ public class ShowFileFolder extends JFrame implements MouseListener{
 				showListPanel((LinkedList)i,deep);
 			}
 			else{
-//				System.out.println(i.getClass().getName());
 				JLabel lb = new JLabel(deep+"____File" + (String)i);
 				lb.addMouseListener(this);
 				panel.add(lb);

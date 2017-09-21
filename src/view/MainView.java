@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -26,11 +28,13 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 	JMenuItem itOpen,itSave,itImport,itExport;
 	JMenuItem itAdd,itDel;
 	
-	JTextField tfInput = new JTextField("Input",20);
+	
 	JComboBox<String> cbSelection = 
 			new JComboBox<String>(new String[]{"Class","Id","TagName"});
+	JTextField tfInput = new JTextField("Input",20);
+	JCheckBox ckGetFirst = new JCheckBox("Get First", true);
 	JButton btnFind = new JButton("Find");
-	
+	JButton btnFillAllLink = new JButton("Fill All Link");
 	public MainView() {
 		//********Add menu************
 		setLayout(new BorderLayout());
@@ -80,31 +84,62 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		mainMennu.add(menuHelp);
 		
 		//*******Add panel***********
-		JPanel panel1 = new JPanel();
-		panel1.add(cbSelection);
-		panel1.add(tfInput);
-		panel1.add(btnFind);
-		
-		JPanel panel2 = new JPanel();
-		panel2.setSize(500, 500);
+		JPanel panelRight_Excercute = new JPanel();
+		panelRight_Excercute.setLayout(new BorderLayout());
+		panelRight_Excercute.setBorder(BorderFactory.createTitledBorder(
+                "Excercise View"));
+		add(panelRight_Excercute, BorderLayout.EAST);
 		
 		JPanel panelCode = new JPanel();
-		panelCode.setBorder(BorderFactory.createTitledBorder(
-                "Excercise View"));
-		panelCode.add(panel1);
-		panelCode.add(panel2);
-		add(panelCode, BorderLayout.EAST);
+		panelCode.setLayout(new GridLayout(0, 1));
+		panelRight_Excercute.add(panelCode, BorderLayout.NORTH);
 		
-		JPanel panelResult = new JPanel();
-		panelResult.setBorder(BorderFactory.createTitledBorder(
+		JPanel panel1 = new JPanel();
+		panel1.setSize(50,50);
+		panel1.setBorder(BorderFactory.createTitledBorder(
+                "Choose Attribute"));
+		panel1.add(cbSelection);
+		panel1.add(ckGetFirst);
+		panel1.add(tfInput);
+		panel1.add(btnFind);
+		panelCode.add(panel1);
+				
+		JPanel panel3 = new JPanel();
+		panel3.setSize(500, 500);
+		panelCode.add(panel3, BorderLayout.CENTER);
+				
+		JPanel panelLeft_Result = new JPanel();
+		panelLeft_Result.setLayout(new BorderLayout());
+		panelLeft_Result.setBorder(BorderFactory.createTitledBorder(
                 "Result View"));
-		add(panelResult, BorderLayout.CENTER);
+		add(panelLeft_Result, BorderLayout.CENTER);
+		
+
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(BorderFactory.createTitledBorder(
+                "Fill All Link"));
+		panel2.add(btnFillAllLink);
+		panelLeft_Result.add(panel2, BorderLayout.SOUTH);
 		
 		
 		setSize(1000, 500);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		cbSelection.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(cbSelection.getSelectedIndex() == 1) {					
+					ckGetFirst.setSelected(true);
+					ckGetFirst.setEnabled(false);
+				}else {
+					ckGetFirst.setSelected(true);
+					ckGetFirst.setEnabled(true);
+				}
+				
+			}
+		});
 	}
 
 	@Override
@@ -155,5 +190,12 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 	public void addClickListtenerForItemMenu(Action action) {
 		
 	}
+
+	@Override
+	public void addFindAllLinkButtonListenner(ActionListener listenner) {
+		btnFillAllLink.addActionListener(listenner);
+		
+	}
+	
 	
 }

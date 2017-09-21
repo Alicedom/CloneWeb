@@ -7,16 +7,22 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import org.jsoup.nodes.Document;
+
+import model.GenCode;
 import view.IMainView;
 import view.MainView;
 
 public class CloneWebProgram {
 	
 	private IMainView main;
+	private Document doc;
+	private GenCode gencode;
 	
 	public CloneWebProgram() {
 		main = new MainView();
-		
+		gencode = new GenCode(); 
+				
 		main.addClickListtenerForFindButtun(new ActionListener() {
 			
 			@Override
@@ -60,6 +66,19 @@ public class CloneWebProgram {
 			public void actionPerformed(ActionEvent arg0) {
 				File file = openJChooseFile("Export");
 				System.out.println(file);
+			}
+		});
+		
+		main.addFindAllLinkButtonListenner(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(doc == null) {
+					System.out.println("null");
+				}else {
+					gencode.getAllLink();
+				}
+				
 			}
 		});
 	}

@@ -21,5 +21,7 @@ public interface IMainView {
 	public String getSelection();
 	
 	public String getElement();
+	
+	public void addFindAllLinkButtonListenner(ActionListener listenner);
 
 }
