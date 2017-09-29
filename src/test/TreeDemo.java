@@ -132,7 +132,7 @@ public class TreeDemo extends JPanel
         }
 
         public String toString() {
-            return bookName;
+            return "hi";
         }
     }
 

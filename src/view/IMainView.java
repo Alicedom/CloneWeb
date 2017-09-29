@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.Container;
 import java.awt.event.ActionListener;
 
 import javax.swing.Action;
+
 
 public interface IMainView {
 	
@@ -23,5 +25,7 @@ public interface IMainView {
 	public String getElement();
 	
 	public void addFindAllLinkButtonListenner(ActionListener listenner);
+
+	public Container getPanelLeft_Result();
 
 }

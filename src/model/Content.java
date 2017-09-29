@@ -3,30 +3,29 @@ package model;
 import org.jsoup.nodes.Element;
 
 public class Content {
-	private boolean choose;
 	private String attribute;
-	private Element content; 
-	public Content() {
-		choose = true;
-		content = null;
+	private Element element;
+	
+	public Content(String attribute) {		
+		this.attribute = attribute;
+		this.element = null;
 	}
-	public boolean isChoose() {
-		return choose;
-	}
-	public void setChoose(boolean choose) {
-		this.choose = choose;
-	}
+	
+    public String toString() {
+        return attribute;
+    }
+	
 	public String getAttribute() {
 		return attribute;
 	}
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
-	public Element getContent() {
-		return content;
+	public Element getElement() {
+		return element;
 	}
-	public void setContent(Element content) {
-		this.content = content;
+	public void setElement(Element content) {
+		this.element = content;
 	}
 	
 	

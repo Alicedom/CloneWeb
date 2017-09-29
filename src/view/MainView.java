@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class MainView extends JFrame implements IMainView, ActionListener{
@@ -27,7 +29,7 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 	
 	JMenuItem itOpen,itSave,itImport,itExport;
 	JMenuItem itAdd,itDel;
-	
+	private JPanel panelLeft_Result;
 	
 	JComboBox<String> cbSelection = 
 			new JComboBox<String>(new String[]{"Class","Id","TagName"});
@@ -66,7 +68,7 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		menuFile.add(itExport);
 		
 		JMenu menuEdit= new JMenu("Edit");
-		menuFile.setMnemonic(KeyEvent.VK_T);
+		menuEdit.setMnemonic(KeyEvent.VK_T);
 		mainMennu.add(menuEdit);
 		
 		itAdd = new JMenuItem("Add");
@@ -80,7 +82,7 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		menuEdit.add(itDel);
 		
 		JMenu menuHelp= new JMenu("Help");
-		menuFile.setMnemonic(KeyEvent.VK_H);
+		menuHelp.setMnemonic(KeyEvent.VK_H);
 		mainMennu.add(menuHelp);
 		
 		//*******Add panel***********
@@ -108,18 +110,18 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 		panel3.setSize(500, 500);
 		panelCode.add(panel3, BorderLayout.CENTER);
 				
-		JPanel panelLeft_Result = new JPanel();
+		panelLeft_Result = new JPanel();
 		panelLeft_Result.setLayout(new BorderLayout());
 		panelLeft_Result.setBorder(BorderFactory.createTitledBorder(
                 "Result View"));
-		add(panelLeft_Result, BorderLayout.CENTER);
+		add(new JScrollPane(panelLeft_Result), BorderLayout.CENTER);
 		
 
 		JPanel panel2 = new JPanel();
 		panel2.setBorder(BorderFactory.createTitledBorder(
                 "Fill All Link"));
 		panel2.add(btnFillAllLink);
-		panelLeft_Result.add(panel2, BorderLayout.SOUTH);
+		add(panel2, BorderLayout.SOUTH);
 		
 		
 		setSize(1000, 500);
@@ -195,6 +197,12 @@ public class MainView extends JFrame implements IMainView, ActionListener{
 	public void addFindAllLinkButtonListenner(ActionListener listenner) {
 		btnFillAllLink.addActionListener(listenner);
 		
+	}
+
+	@Override
+	public Container getPanelLeft_Result() {
+		// TODO Auto-generated method stub
+		return this.panelLeft_Result;
 	}
 	
 	
