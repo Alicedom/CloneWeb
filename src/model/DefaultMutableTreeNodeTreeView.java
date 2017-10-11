@@ -1,7 +1,10 @@
 package model;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -10,6 +13,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTree;
@@ -22,7 +27,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 
-public class TreeView extends JPanel implements TreeSelectionListener {
+public class DefaultMutableTreeNodeTreeView extends JPanel implements TreeSelectionListener {
 
 	/**
 	 * 
@@ -32,7 +37,7 @@ public class TreeView extends JPanel implements TreeSelectionListener {
 	private Document doc=null;
 	private JTree tree;
 
-	public TreeView(File dir) {
+	public DefaultMutableTreeNodeTreeView(File dir) {
 		setLayout(new BorderLayout());
 		tree = new JTree(addNodes(null, dir));
 		add(tree);
@@ -40,6 +45,7 @@ public class TreeView extends JPanel implements TreeSelectionListener {
 		tree.getSelectionModel().setSelectionMode
 		(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
+		
 		//Listen for when the selection changes.
 		tree.addTreeSelectionListener(this);
 
@@ -90,7 +96,6 @@ public class TreeView extends JPanel implements TreeSelectionListener {
 
 		//***************Chuyen thread de load********************//
 		try {
-			System.out.println(dir.getName());
 			doc = Jsoup.parse(dir, "UTF-8");
 		} catch (IOException e) {
 			System.out.println(e.toString());
@@ -104,9 +109,7 @@ public class TreeView extends JPanel implements TreeSelectionListener {
 
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)
 				tree.getLastSelectedPathComponent();
-//		TreePath[] jtree= tree.getSelectionPaths();
-//		System.out.println(jtree.length + jtree.toString());
-
+		
 		if (node == null) return;
 
 		if (node.isLeaf()) {
@@ -115,16 +118,53 @@ public class TreeView extends JPanel implements TreeSelectionListener {
 		}
 	}
 
-
+	
+	static DefaultMutableTreeNodeTreeView treeview;
+	static Container cp; 
+	static JButton btnChoose;
 	public static void main(String[] av) {
 
 		JFrame frame = new JFrame();
-		Container cp = frame.getContentPane();
-		cp.add(new TreeView(new File(".")));
+		cp = frame.getContentPane();
+		cp.setLayout(new BorderLayout());
+		treeview = new DefaultMutableTreeNodeTreeView(new File("."));
+		cp.add(treeview, BorderLayout.CENTER);
+
+		btnChoose = new JButton("choose");
+		cp.add(btnChoose, BorderLayout.NORTH);
+		btnChoose.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				File file = openJChooseFile("Open");
+				  
+				treeview = new DefaultMutableTreeNodeTreeView(file);
+				cp.add(treeview, BorderLayout.CENTER);
+				System.gc();
+				cp.validate();
+				cp.repaint();
+			}
+		});
+
 		frame.pack();
 		frame.setVisible(true);
 		frame.setSize(300, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	protected static File openJChooseFile(String string) {
+		File file = null;
+
+		JFileChooser fc= new JFileChooser();
+		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		int returnVal = fc.showDialog((Component) cp, string);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			file = fc.getSelectedFile();
+			System.out.println("Choose: "+file.getPath());
+		}
+
+		return file;
+
 	} 
 
 }
