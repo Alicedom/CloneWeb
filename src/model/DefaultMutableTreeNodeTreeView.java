@@ -82,7 +82,7 @@ public class DefaultMutableTreeNodeTreeView extends JPanel implements TreeSelect
 				Content contentFile = new Content(file.getName());
 
 				if(file.getName().toLowerCase().endsWith(".html")) {
-					contentFile.setElement(getDocToFile(file));
+					contentFile.setElement(Tool.getDocToFile(file));
 				}
 
 				curDir.add(new DefaultMutableTreeNode(contentFile));
@@ -91,17 +91,6 @@ public class DefaultMutableTreeNodeTreeView extends JPanel implements TreeSelect
 		return curDir;
 	}
 
-	private Document getDocToFile(File dir){
-
-
-		//***************Chuyen thread de load********************//
-		try {
-			doc = Jsoup.parse(dir, "UTF-8");
-		} catch (IOException e) {
-			System.out.println(e.toString());
-		}
-		return doc;
-	}
 
 
 	@Override

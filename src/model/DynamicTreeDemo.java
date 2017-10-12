@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -57,6 +58,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import control.BookViewController;
+
 public class DynamicTreeDemo extends JPanel 
 implements ActionListener {
 	/**
@@ -66,13 +69,16 @@ implements ActionListener {
 	private static String ADD_COMMAND = "add";
 	private static String REMOVE_COMMAND = "remove";
 	private static String CLEAR_COMMAND = "clear";
+	private static String VIEW_COMMAND = "view";
 	private DynamicTree treePanel;
+	LinkedList<Content> listContent;
 
 	public DynamicTreeDemo(File dir) {
 		super(new BorderLayout());
 
 		//Create the components.
 		treePanel = new DynamicTree();
+		listContent = new LinkedList<Content>();
 		populateTree(treePanel, null,dir);
 
 		JButton addButton = new JButton("Add");
@@ -87,15 +93,20 @@ implements ActionListener {
 		clearButton.setActionCommand(CLEAR_COMMAND);
 		clearButton.addActionListener(this);
 		
+		JButton viewButton = new JButton("View");
+		viewButton.setActionCommand(VIEW_COMMAND);
+		viewButton.addActionListener(this);
+		
 
 		//Lay everything out.
 		treePanel.setPreferredSize(new Dimension(500, 500));
 		add(treePanel, BorderLayout.CENTER);
 
-		JPanel panel = new JPanel(new GridLayout(0,3));
+		JPanel panel = new JPanel(new GridLayout(0,4));
 		panel.add(addButton);
 		panel.add(removeButton); 
 		panel.add(clearButton);
+		panel.add(viewButton);
 		add(panel, BorderLayout.NORTH);
 		
 	}
@@ -129,33 +140,26 @@ implements ActionListener {
 				Content contentFile = new Content(file.getName());
 
 				if(file.getName().toLowerCase().endsWith(".html")) {
-					contentFile.setElement(getDocToFile(file));
+					contentFile.setElement(Tool.getDocToFile(file));
+					contentFile.setPath(file);
+					treePanel.addObject(p, contentFile);
+					listContent.add(contentFile);
 				}
 
-				treePanel.addObject(p, contentFile);
+				
 			}
 		}
 
 	}
 
-	private Document getDocToFile(File dir){
-		Document doc =null;
-
-		//***************Chuyen thread de load********************//
-		try {
-			doc = Jsoup.parse(dir, "UTF-8");
-		} catch (IOException e) {
-			System.out.println(e.toString());
-		}
-		return doc;
-	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 
 		if (ADD_COMMAND.equals(command)) {
 			//Add button clicked
-			populateTree(treePanel, null,OpenJChooFile.open(treePanel, "Open"));
+			populateTree(treePanel, null,Tool.openJChooseFile(treePanel, "Open"));
 			
 		} else if (REMOVE_COMMAND.equals(command)) {
 			//Remove button clicked
@@ -163,6 +167,9 @@ implements ActionListener {
 		} else if (CLEAR_COMMAND.equals(command)) {
 			//Clear button clicked.
 			treePanel.clear();
+		}else if (VIEW_COMMAND.equals(command)) {
+			//View content.
+			new BookViewController(listContent);
 		}
 	}
 

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import model.DynamicTreeDemo;
-import model.OpenJChooFile;
+import model.Tool;
 import view.MainView;
 
 public class MainViewController {
@@ -31,7 +31,7 @@ public class MainViewController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				File file = OpenJChooFile.open(main,"Open");
+				File file = Tool.openJChooseFile(main,"Open");
 				treeview = new DynamicTreeDemo(file);
 			}
 		});
@@ -40,7 +40,7 @@ public class MainViewController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				File file = OpenJChooFile.open(main, "Save");
+				File file = Tool.openJChooseFile(main, "Save");
 				System.out.println(file);
 			}
 		});
@@ -49,7 +49,7 @@ public class MainViewController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				File file = OpenJChooFile.open(main, "Import");
+				File file = Tool.openJChooseFile(main, "Import");
 				System.out.println(file);
 			}
 		});
@@ -57,7 +57,7 @@ public class MainViewController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				File file = OpenJChooFile.open(main,"Export");
+				File file = Tool.openJChooseFile(main,"Export");
 				System.out.println(file);
 			}
 		});

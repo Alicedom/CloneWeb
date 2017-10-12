@@ -31,6 +31,9 @@ public class CloneChienLuocSong {
 	public CloneChienLuocSong() throws IOException {
 		try{
 			File fileLog = new File(logName);
+			if (!fileLog.getParentFile().exists())
+				fileLog.getParentFile().mkdirs();
+			
 			if(!fileLog.exists())
 				fileLog.createNewFile();
 			if(logNameWt == null){
@@ -71,16 +74,27 @@ public class CloneChienLuocSong {
 	private void getFile(String linkArticle) throws IOException{
 
 		logNameWt.write(linkArticle);
-		String fileName = linkArticle.replace(home, "");
-		fileName = linkArticle.replace("/", "");
+		String fileName = linkArticle.replace(home, "").replace("/", "");
 		System.out.println(fileName);
 
 		System.out.println("get File _ link Article "+linkArticle);
 		doc = getDocToLink(linkArticle);
 		Element content = doc.getElementsByClass("td-ss-main-content").first();
-		
-		getContent(fileName, content);
-		getDetail(fileName, content);
+		new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				try {
+					getContent(fileName, content);
+					getDetail(fileName, content);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		};
 	}
 	
 
@@ -103,11 +117,11 @@ public class CloneChienLuocSong {
 			try {
 				info = content.getElementsByClass("td-post-header").first();
 				
-				out.write("<html> \n <title> <meta chaset=\"UTF-8\"></title>");
+				out.write("<html> \n <head> <meta charset=\"UTF-8\"></head><body>");
 
 				Element shortContentClass = content.getElementsByClass("td-post-content").first();
 				out.write(shortContentClass.html());
-				out.write("</html>");
+				out.write("</body></html>");
 				System.out.println("write sucess: "+fileName);
 			} finally {
 				out.close();

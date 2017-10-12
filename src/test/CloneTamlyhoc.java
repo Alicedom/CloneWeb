@@ -20,15 +20,18 @@ public class CloneTamlyhoc {
 	private LinkedList<String> linkListArticles;
 
 	private final String homeLink ="http://tamlyhoctoipham.com/";
-	private final String folderContent = "tam ly hoc toi pham\\content\\";
-	private final String folderDetail = "tam ly hoc toi pham\\detail\\";
-	private final String logName = "E:\\tam ly hoc toi pham\\log.txt";
+	private final String folderContent = "tamlyhoctoipham/content/";
+	private final String folderDetail = "tamlyhoctoipham/detail/";
+	private final String logName = "tamlyhoctoipham/log.txt";
 	private Writer log;
 	private Element info;
 
 	public CloneTamlyhoc() throws IOException {
 		try{
 			File fileLog = new File(logName);
+			if (!fileLog.getParentFile().exists())
+				fileLog.getParentFile().mkdirs();
+			
 			if(!fileLog.exists())
 				fileLog.createNewFile();
 			if(log == null){
@@ -54,8 +57,9 @@ public class CloneTamlyhoc {
 			
 			System.out.println(stop- start);
 			log.write(String.valueOf(stop- start));
-		}finally {
 			log.close();
+		}finally {
+			
 			
 		}
 	}
@@ -140,9 +144,23 @@ public class CloneTamlyhoc {
 
 		doc = getDocToLink(linkArticle);
 		Element content = doc.getElementsByClass("composs-main-article-content").first();
+
+		new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					getContent(fileName, content);
+					getDetail(fileName, content);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		};
 		
-		getContent(fileName, content);
-		getDetail(fileName, content);
 	}
 
 	private void getContent(String fileName, Element content) throws IOException{
@@ -163,8 +181,17 @@ public class CloneTamlyhoc {
 			try {
 				info = content.getElementsByClass("composs-main-article-meta").first();
 
-				Element shortContentClass = content.getElementsByClass("shortcode-content").first();
-				out.write(shortContentClass.html());
+				Element shortContentClass = content.getElementsByClass("shortcode-content").get(1);
+
+//				out.write("<html> \n <title> <meta charset=\"UTF-8\"></title>");
+//				out.write(shortContentClass.html());
+//				out.write("</html>");
+				
+				Document doc = Jsoup.parse(shortContentClass.html());
+				doc.outputSettings().charset("UTF-8");
+				doc.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.html);
+				doc.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml);
+				out.write(doc.html());
 				System.out.println("write sucess: "+fileName);
 			} finally {
 				out.close();
